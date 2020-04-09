@@ -1,0 +1,34 @@
+﻿
+@model Solution.Presentation.Models.Post.PostIndexModel
+
+<h1>@Model.Title</h1>
+
+<div>
+    Authr:@Model.AuthorName
+    created:@Model.Created
+
+</div>
+
+
+<div>
+    @Model.PostContennt
+</div>
+
+@if (Model.Replies.Any())
+{
+    foreach(var reply in Model.Replies)
+    {
+<div>
+    <div>
+       Reply Authr:@reply.AuthorName
+        Reply created:@reply.Created
+
+    </div>
+
+
+    <div>
+        @reply.ReplyContent
+    </div>
+</div>
+    }
+}

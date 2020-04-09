@@ -1,0 +1,106 @@
+﻿@model Solution.Presentation.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+    -->
+<!-- Breadcrumb Section Begin -->
+<div class="breacrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-text">
+                    <a href="#"><i class="fa fa-home"></i> Home</a>
+                    <span>Register</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Form Section Begin -->
+<!-- Register Section Begin -->
+<div class="register-login-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="register-form">
+                    <h2>Register</h2>
+                    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="group-input">
+                            @Html.TextBoxFor(m => m.FirstName, new { @placeholder = "First Name" })
+                        </div>
+                        <div class="group-input">
+                            @Html.TextBoxFor(m => m.LastName, new { @placeholder = "Last Name" })
+                        </div>
+                        <div class="group-input">
+                            @Html.TextBoxFor(m => m.DateOfBirth, new { type = "date" })
+                        </div>
+
+                        <div class="group-input">
+                            @Html.TextBoxFor(m => m.UserName, new { @placeholder = "Username" })
+                        </div>
+
+                        <div class="group-input">
+                            @Html.TextBoxFor(m => m.Email, new { @placeholder = "Email" })
+                        </div>
+
+                        <div class="group-input">
+                            @Html.TextBoxFor(m => m.Phone2, new { @placeholder = "Phone" })
+                        </div>
+
+
+                        <div class="group-input">
+                            @Html.PasswordFor(m => m.Password, new { @placeholder = "Password" })
+                        </div>
+
+                        <div class="group-input">
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @placeholder = "Confirm Password" })
+                        </div>
+
+                        <div class="group-input">
+                            @Html.TextBox("Image", null, new
+                    {
+                        type = "file",
+                        @class = "form-input-styled"
+                    })
+                            @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+                        </div>
+
+
+                        <div class="reg_checkbox">
+                            <input type="checkbox" class="checkbox" id="checkbox" />
+                            <label for="checkbox"></label>
+                            <span>I agree to the <a href="#">Terms of service</a></span>
+                        </div>
+                        <button type="submit" class="site-btn register-btn">REGISTER</button>
+                    }
+                    <div class="switch-login">
+                        @Html.ActionLink("You have already an account ?", "Login", "Account")
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+      var blog = document.getElementById("blog");
+    var contact = document.getElementById("contact");
+    var others = document.getElementById("others");
+    var home = document.getElementById("home");
+    var shop = document.getElementById("shop");
+    blog.className = blog.className.replace("active", "");
+    shop.className = shop.className.replace("active", "");
+    contact.className = contact.className.replace("active", "");
+    home.className = home.className.replace("active", "");
+    others.className += "active";
+</script>

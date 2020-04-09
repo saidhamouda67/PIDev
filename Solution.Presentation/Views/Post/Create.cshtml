@@ -1,0 +1,51 @@
+﻿@model Solution.Presentation.Models.Post.NewPostModel
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>NewPostModel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Model.ForumId
+        <h1>Forum - @Model.ForumName </h1>
+        <h3>Author - @Model.AuthorName</h3>
+
+
+
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-3">
+            @Html.HiddenFor(model=>model.ForumId,new { @Value = @Model.ForumId })
+            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control " } })
+            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-6" })
+        <div class="col-md-10">
+
+            @Html.TextArea("Content", null, new { @class = "form-control col-md-6", rows = "5" })
+            @Html.ValidationMessageFor(model => model.ForumImageUrl, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-success" />
+        </div>
+    </div>
+
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

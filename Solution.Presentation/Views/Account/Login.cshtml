@@ -1,0 +1,80 @@
+﻿@model Solution.Presentation.Models.LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+
+}
+
+<div class="breacrumb-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-text">
+                    <a href="#"><i class="fa fa-home"></i> Home</a>
+                    <span>Login</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb Form Section Begin -->
+<!-- Register Section Begin -->
+<div class="register-login-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="login-form">
+                    <h2>Login</h2>
+                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="group-input">
+                            <label for="username">Username or email address *</label>
+                            @Html.TextBoxFor(m => m.UserName, new { @placeholder = "Username" })
+                            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="group-input">
+                            <label for="pass">Password *</label>
+                            @Html.PasswordFor(m => m.Password, new { @placeholder = "Password" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+
+
+                        <div class="group-input gi-check">
+                            <div class="gi-more">
+                                <label for="save-pass">
+                                    Save Password
+                                    <input type="checkbox" id="save-pass">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <a href="#" class="forget-pass">Forget your Password</a>
+                            </div>
+                        </div>
+                        <button type="submit" class="site-btn login-btn">Sign In</button>
+
+                    }
+                    <div class="switch-login">
+                        @Html.ActionLink(" Or Create An Account", "Register", "Account", new { @class = "or-login" })
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Register Form Section End -->
+<!-- Partner Logo Section Begin -->
+<!-- Partner Logo Section End -->
+
+@Scripts.Render("~/bundles/jqueryval")
+<script>
+      var blog = document.getElementById("blog");
+    var contact = document.getElementById("contact");
+    var others = document.getElementById("others");
+    var home = document.getElementById("home");
+    var shop = document.getElementById("shop");
+    blog.className = blog.className.replace("active", "");
+    shop.className = shop.className.replace("active", "");
+    contact.className = contact.className.replace("active", "");
+    home.className = home.className.replace("active", "");
+    others.className += "active";
+</script>

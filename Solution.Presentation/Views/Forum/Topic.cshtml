@@ -1,0 +1,32 @@
+﻿@model Solution.Presentation.Models.Forum.ForumTopicModel
+
+<h1>Welcome to the model @Model.Forum.Name Forum</h1>
+<h2> <a href="/Post/Create?id=@Model.Forum.Id" class="btn btn-newPost">
+     Create you post
+     </a></h2>
+
+@if (Model.Posts.Any())
+{
+    <table class="table table-bordered table-hover" >
+        <tbody>
+            @foreach (var post in Model.Posts)
+            {
+            <tr>
+                <td> <a href="/Post/index?id=@post.Id">@post.Title</a></td>
+              
+
+                <td>@post.AuthorName</td>
+                <td>@post.DatePosted</td>
+                <td>@post.RepliesCount</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+
+else
+{
+    <div class="noposts"><h3>
+         no posts found </h3></div>
+
+}
