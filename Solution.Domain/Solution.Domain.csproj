@@ -58,8 +58,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Entities\Event.cs" />
     <Compile Include="Entities\Forum.cs" />
-    <Compile Include="Entities\Kindergarten.cs" />
     <Compile Include="Entities\Post.cs" />
     <Compile Include="Entities\PostReply.cs" />
     <Compile Include="Entities\User.cs" />

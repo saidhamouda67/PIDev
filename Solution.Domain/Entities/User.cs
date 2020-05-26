@@ -25,12 +25,12 @@ namespace Solution.Domain.Entities
         public string image { get; set; }
         public string Phone2 { get; set; }
 
-        public int Rating { get; set; }
+        
         public bool IsActive { get; set; }
 
+        public bool isVerified { get; set; }
         
         public DateTime MemberSince { get; set; }
-        public virtual ICollection<Kindergarten> Kindergartens { get; set; }
         public virtual ICollection<PostReply> Replies { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
 

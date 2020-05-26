@@ -1,4 +1,8 @@
-﻿using Solution.Domain.Entities;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using PM_Dashboard.App_Start;
+using Solution.Data;
+using Solution.Domain.Entities;
 using Solution.Presentation.Models.Forum;
 using Solution.Presentation.Models.Post;
 using Solution.Service;
@@ -14,12 +18,39 @@ namespace Solution.Presentation.Controllers
     {
         private readonly IForumService _forumService;
         private readonly IPostService _postService;
-     
+        private readonly IUserService us;
+        private readonly ApplicationUserManager _userManager;
+        private MyContext _context = new MyContext();
+
 
         public ForumController()
         {
             _forumService = new ForumService();
             _postService = new PostService();
+            _userManager = new ApplicationUserManager(new UserStore<User>(_context));
+
+            us = new UserService();
+        }
+
+        private void theUserInfo()
+        {
+            bool val1 = (System.Web.HttpContext.Current.User != null) && System.Web.HttpContext.Current.User.Identity.IsAuthenticated;
+            if (val1)
+            {
+                var user = us.GetById(User.Identity.GetUserId());
+
+                if (_userManager.IsInRole(user.Id, "Admin") || _userManager.IsInRole(user.Id, "Manager"))
+                {
+                    ViewBag.Admin = true;
+                }
+                string Phone2 = user.Phone2;
+                string mail = user.Email;
+                ViewBag.home = mail;
+                ViewBag.phone = Phone2;
+                ViewBag.authenticated = val1;
+                ViewBag.ImageUrlProfile = user.image;
+
+            }
         }
         // GET: Forum
         public ActionResult Index()
@@ -35,13 +66,14 @@ namespace Solution.Presentation.Controllers
             {
                 ForumList = forums
             };
-       
+            theUserInfo();
             return View(model);
 
 
         }
 
 
+         
         public ActionResult Topic(int id)
         {
             Forum forum = _forumService.GetById(id);
@@ -50,12 +82,12 @@ namespace Solution.Presentation.Controllers
             {
                 Id = post.Id,
                 AuthorId = post.UserId,
-                AuthorRating = post.User.Rating,
                 AuthorName=post.User.FirstName,
                 Title = post.Title,
                 DatePosted = post.Created.ToString(),
                 RepliesCount = post.Replies.Count(),
-                Forum = BuildForumListing(post)
+                Forum = BuildForumListing(post),
+                ImageUrl=post.ImageUrl
             });
 
             var model = new ForumTopicModel
@@ -63,6 +95,8 @@ namespace Solution.Presentation.Controllers
                 Posts = postListings,
                 Forum = BuildForumListing(forum)
             };
+            theUserInfo();
+
             return View(model);
         }
 

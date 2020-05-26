@@ -15,6 +15,8 @@ namespace Solution.Domain.Entities
         public string Content { get; set; }
         public DateTime Created { get; set; }
 
+        public string ImageUrl { get; set; }
+
         public string UserId { get; set; }
 
         [ForeignKey("UserId")]

@@ -1,0 +1,73 @@
+﻿@model Solution.Presentation.Models.Post.NewPostModel
+
+
+
+
+<div class="col-lg-6 mx-auto text-center">
+    <div class="header-title">
+        <h3 class="wv-heading--title">
+            Update Post
+        </h3>
+
+    </div>
+</div>
+<div class="register-login-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="register-form">
+                    <h2>@Model.ForumName</h2>
+                    @using (Html.BeginForm("Update", "Post", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+
+                        <div class="group-input">
+                            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                            @Html.HiddenFor(model => model.PostId, new { @Value = @Model.PostId })
+                            @Html.HiddenFor(model => model.ForumId, new { @Value = @Model.ForumId })
+                            @Html.HiddenFor(model => model.Created, new { @Value = @Model.Created })
+                            @Html.HiddenFor(model => model.CurrentImageUrl, new { @Value = @Model.CurrentImageUrl })
+                            @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = " " } })
+                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="group-input">
+
+
+                            @Html.TextArea("Content", null, new { @class = "form-control", rows = "5" })
+                            @Html.ValidationMessageFor(model => model.ForumImageUrl, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="group-input">
+
+                            @Html.TextBoxFor(m => m.ImageFile, new { type = "file" })
+                        </div>
+
+                        <div class="text-center">
+                            <input type="submit" value="Update" class="site-btn register-btn" />
+                        </div>
+
+
+                    }
+
+                    <div class="switch-login">
+                        <a class="btn btn-block g-button" href="/Forum/Topic/?id=@Model.ForumId">
+                            Back To Posts
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+
+</script>

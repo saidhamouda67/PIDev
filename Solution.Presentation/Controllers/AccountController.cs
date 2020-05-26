@@ -14,6 +14,8 @@ using Solution.Data;
 using Solution.Presentation.Models;
 using Solution.Domain.Entities;
 using Solution.Service;
+using Solution.Presentation.Controllers.Service;
+
 
 namespace PM_Dashboard.Controllers
 {
@@ -102,11 +104,18 @@ namespace PM_Dashboard.Controllers
             }
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
+            
             var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
+
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("Index", "Home");
+                    var userId = SignInManager.AuthenticationManager.AuthenticationResponseGrant.Identity.GetUserId();
+                    if (UserManager.IsInRole(userId, "Admin") || UserManager.IsInRole(userId, "Manager"))
+                    {
+                        return RedirectToAction("Index", "BackOffice");
+                    }
+                    else { return RedirectToAction("Index", "Home"); }
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -182,9 +191,16 @@ namespace PM_Dashboard.Controllers
 
             if (User.Identity.IsAuthenticated)
                 return RedirectToAction("Index", "Home");
-
+            
             if (ModelState.IsValid)
             {
+
+                string fileName = Path.GetFileNameWithoutExtension(Image.FileName);
+                string extention = Path.GetExtension(Image.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssff") + extention;
+                model.Image = "~/Image/" + fileName;
+                fileName = Path.Combine(Server.MapPath("~/Image/"), fileName);
+                Image.SaveAs(fileName);
                 var user = new User
                 {
                     UserName = model.UserName,
@@ -192,55 +208,59 @@ namespace PM_Dashboard.Controllers
                     domain = "Default",
                     DateOfBirth = model.DateOfBirth,
                     FirstName = model.FirstName,
-                    image = Image.FileName,
+                    image = model.Image,
                     LastName = model.LastName,
                     Phone2=model.Phone2,
 
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    IdentityResult newResult = UserManager.AddToRole(user.Id, "User");
 
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-
-                    //Assign Role to user Here  
-                    //await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);    
-                    await this.UserManager.AddToRoleAsync(user.Id,model.Roles.ToString());
-                    //Ends Here 
-                    var path2 = Path.Combine(Server.MapPath("~/Content/Uploads"), Image.FileName);
-                    Image.SaveAs(path2);
-                    return RedirectToAction("Index", "Home");
-                    //return RedirectToAction("Index", "Home");
+                    var token = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var confirmationLink = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, token = token },protocol:Request.Url.Scheme);
+                    UserManager.EmailService = new EmailServicec();
+                    await UserManager.SendEmailAsync(user.Id,
+                        "Confirm your account",
+                            "Please confirm your account by clicking this link: <a href=\""
+                                              + confirmationLink + "\">link</a>");
+   
+                    
+                    return RedirectToAction("SignalConfMail","Account");
+                 
                 }
 
                 
 
                 AddErrors(result);
             }
-            var path = Path.Combine(Server.MapPath("~/Content/Uploads"), Image.FileName);
-            Image.SaveAs(path);
-            // If we got this far, something failed, redisplay form
+         
+         
             return View(model);
         }
 
         //
         // GET: /Account/ConfirmEmail
+        [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult> ConfirmEmail(string userId, string code)
+        public async Task<ActionResult> ConfirmEmail(string userId, string token)
         {
-            if (userId == null || code == null)
+            if (userId == null || token == null)
             {
                 return View("Error");
             }
-            var result = await UserManager.ConfirmEmailAsync(userId, code);
+            var result = await UserManager.ConfirmEmailAsync(userId, token);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
+
+
+        public ActionResult SignalConfMail()
+        {
+            return View();
+        }
+
 
         //
         // GET: /Account/ForgotPassword
@@ -452,7 +472,7 @@ namespace PM_Dashboard.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Login", "Account");
+            return RedirectToAction("Index", "Home");
         }
 
         //

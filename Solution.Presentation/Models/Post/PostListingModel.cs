@@ -17,6 +17,7 @@ namespace Solution.Presentation.Models.Post
         public string DatePosted { get; set; }
         public int  ForumId { get; set; }
 
+        public string ImageUrl { get; set; }
         public string ForumImageUrl { get; set; }
 
         public string ForumName { get; set; }

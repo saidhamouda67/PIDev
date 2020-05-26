@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Web;
 
 namespace Solution.Presentation.Models
 {
@@ -78,7 +80,7 @@ namespace Solution.Presentation.Models
 
         public string DateOfBirth { get; set; }
         public string Phone2 { get; set; }
-        public string role5 { get; set; }
+        
 
 
 
@@ -124,8 +126,8 @@ namespace Solution.Presentation.Models
 
         public string DateOfBirth { get; set; }
         public string Phone2 { get; set; }
-        public string role5 { get; set; }
-
+        public string CurrentImageUrl { get; set; }
+       
 
 
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Solution.Service
 {
-    interface IPostReplyService : IService<PostReply>
+    public  interface IPostReplyService : IService<PostReply>
     {
     }
 }

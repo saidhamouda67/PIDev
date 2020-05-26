@@ -76,67 +76,55 @@ namespace PM_Dashboard
             //});
         }
 
-
+            
         private void CreateRolesandUsers()
         {
             MyContext context = new MyContext();
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             var UserManager = new UserManager<User>(new UserStore<User>(context));
 
-            // In Startup iam creating first Admin Role and creating a default Admin User    
+            //In Startup iam creating first Admin Role and creating a default Admin User
 
 
-            // creating Creating Directeur role    
-            if (!roleManager.RoleExists("Directeur"))
-            {
-                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
-                role.Name = "Directeur";
-                roleManager.Create(role);
+            //// creating Creating Directeur role
+            //if (!roleManager.RoleExists("Directeur"))
+            //{
+            //    var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+            //    role.Name = "Directeur";
+            //    roleManager.Create(role);
 
-            }
+            //}
 
-            // creating Creating Docteur role    
-            if (!roleManager.RoleExists("Docteur"))
-            {
-                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
-                role.Name = "Docteur";
-                roleManager.Create(role);
+            //// creating Creating Docteur role    
 
-            }
 
-            // creating Creating Manager role    
-            if (!roleManager.RoleExists("Manager"))
-            {
-                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
-                role.Name = "Manager";
-                roleManager.Create(role);
+            //// creating Creating Manager role    
+            //if (!roleManager.RoleExists("Manager"))
+            //{
+            //    var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+            //    role.Name = "Manager";
+            //    roleManager.Create(role);
 
-            }
-            // creating Creating Parent role    
+            //}
+            //// creating Creating Parent role    
 
-            if (!roleManager.RoleExists("Parent"))
-            {
-                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
-                role.Name = "Parent";
-                roleManager.Create(role);
+            //if (!roleManager.RoleExists("Livreur"))
+            //{
+            //    var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+            //    role.Name = "Livreur";
+            //    roleManager.Create(role);
 
-            }
-            if (!roleManager.RoleExists("Prospect"))
-            {
-                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
-                role.Name = "Prospect";
-                roleManager.Create(role);
-
-            }
-            if (!roleManager.RoleExists("Admin"))
-            {
-                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
-                role.Name = "Admin";
-                roleManager.Create(role);
-
-            }
-
+            //}
           
+            //if (!roleManager.RoleExists("Admin"))
+            //{
+            //    var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+            //    role.Name = "Admin";
+            //    roleManager.Create(role);
+
+            //}
+
+
         }
     }
 }

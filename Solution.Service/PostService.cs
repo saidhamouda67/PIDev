@@ -62,11 +62,20 @@ namespace Solution.Service
             return posts;
                 
         }
-
-       public async  Task Adding(Post post)
+     
+        public async  Task Adding(Post post)
         {
      
             await _context.SaveChangesAsync();
+        }
+
+        public void TheDelete(Post post)
+        {
+          
+                _context.Posts.Attach(post);
+                _context.Posts.Remove(post);
+                _context.SaveChanges();
+            
         }
     }
 }

@@ -12,7 +12,6 @@ namespace Solution.Data.Configurations
     {
         public UserConfiguration()
         {
-            HasMany(u => u.Kindergartens).WithRequired(k => k.User).HasForeignKey(p => p.UserId).WillCascadeOnDelete(true);
             HasMany(u =>u.Replies).WithRequired(k => k.User).HasForeignKey(e => e.UserId).WillCascadeOnDelete(true);
             HasMany(u => u.Posts).WithRequired(k => k.User).HasForeignKey(e => e.UserId).WillCascadeOnDelete(true);
 

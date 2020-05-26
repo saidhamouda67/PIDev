@@ -64,21 +64,14 @@
     <Compile Include="Configurations\PostConf.cs" />
     <Compile Include="Configurations\PostReplyConf.cs" />
     <Compile Include="Configurations\UserConfiguration.cs" />
-    <Compile Include="Migrations\202004052001349_thisMigsd.cs" />
-    <Compile Include="Migrations\202004052001349_thisMigsd.designer.cs">
-      <DependentUpon>202004052001349_thisMigsd.cs</DependentUpon>
+    <Compile Include="CustomConventions\DateTimeTwoConvention.cs" />
+    <Compile Include="Migrations\202005201151384_secondMigger.cs" />
+    <Compile Include="Migrations\202005201151384_secondMigger.designer.cs">
+      <DependentUpon>202005201151384_secondMigger.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202004081021125_DateTimeMigration.cs" />
-    <Compile Include="Migrations\202004081021125_DateTimeMigration.designer.cs">
-      <DependentUpon>202004081021125_DateTimeMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004081038479_DateTimeMigrationSecond.cs" />
-    <Compile Include="Migrations\202004081038479_DateTimeMigrationSecond.designer.cs">
-      <DependentUpon>202004081038479_DateTimeMigrationSecond.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004082115358_eliminateRolefifth.cs" />
-    <Compile Include="Migrations\202004082115358_eliminateRolefifth.designer.cs">
-      <DependentUpon>202004082115358_eliminateRolefifth.cs</DependentUpon>
+    <Compile Include="Migrations\202005261335231_ratingUsers.cs" />
+    <Compile Include="Migrations\202005261335231_ratingUsers.designer.cs">
+      <DependentUpon>202005261335231_ratingUsers.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MyContext.cs" />
@@ -102,20 +95,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="CustomConventions\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202004052001349_thisMigsd.resx">
-      <DependentUpon>202004052001349_thisMigsd.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202005201151384_secondMigger.resx">
+      <DependentUpon>202005201151384_secondMigger.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004081021125_DateTimeMigration.resx">
-      <DependentUpon>202004081021125_DateTimeMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004081038479_DateTimeMigrationSecond.resx">
-      <DependentUpon>202004081038479_DateTimeMigrationSecond.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004082115358_eliminateRolefifth.resx">
-      <DependentUpon>202004082115358_eliminateRolefifth.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202005261335231_ratingUsers.resx">
+      <DependentUpon>202005261335231_ratingUsers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

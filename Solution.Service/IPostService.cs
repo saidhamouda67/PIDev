@@ -17,5 +17,6 @@ namespace Solution.Service
 
         Task Adding(Post post);
         IEnumerable<Post> GetPostsByForum(Forum id);
+        void TheDelete(Post post);
     }
 }

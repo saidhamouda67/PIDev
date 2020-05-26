@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+
+
+<!DOCTYPE html>
 <html lang="zxx">
 
 <head>
@@ -13,6 +16,9 @@
     <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
     @Styles.Render("~/template/css")
+    @Scripts.Render("~/template/js")
+    @RenderSection("scripts", required: false)
+
 </head>
 
 <body>
@@ -30,6 +36,7 @@
                     <div class="mail-service">
                         <i class=" fa fa-envelope"></i>
                         @ViewBag.home
+                        
                     </div>
                     <div class="phone-service">
                         <i class=" fa fa-phone"></i>
@@ -51,31 +58,49 @@
                             {
                                 @Html.AntiForgeryToken()
 
-                                
-                                 <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
-                             
+
+                                <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+
                             }
                         }
                     </div>
-                    <div class="lan-selector">
-                        <select class="language_drop" name="countries" id="countries" style="width:300px;">
-                            <option value='yt' data-image="@Url.Content("~/Content/img/flag-1.jpg")" data-imagecss="flag yt"
-                                    data-title="English">
-                                English
-                            </option>
-                            <option value='yu' data-image="@Url.Content("~/Content/img/flag-2.jpg")" data-imagecss="flag yu"
-                                    data-title="Bangladesh">
-                                German
-                            </option>
-                        </select>
+                    @if (@ViewBag.authenticated != null)
+                    {
+                        if (@ViewBag.Admin == true)
+                        {
+                            <div class="login-panel mr-3">
+                                
+
+                                @Html.ActionLink("Dashboard", "Index", "BackOffice")
+
+                                
+
+                            </div>
+                            }
+
+                        <div class="login-panel">
+                            <a href="/Home/update"><img src="@Url.Content(@ViewBag.ImageUrlProfile)" style="width:67px;height:67px; border-radius:50%" /></a>
+                        </div>
+                        }
+                        <div class="lan-selector">
+                            <select class="language_drop" name="countries" id="countries" style="width:300px;">
+                                <option value='yt' data-image="@Url.Content("~/Content/img/flag-1.jpg")" data-imagecss="flag yt"
+                                        data-title="English">
+                                    English
+                                </option>
+                                <option value='yu' data-image="@Url.Content("~/Content/img/flag-2.jpg")" data-imagecss="flag yu"
+                                        data-title="Bangladesh">
+                                    German
+                                </option>
+                            </select>
+                        </div>
+                        <div class="top-social">
+                            <a href="#"><i class="ti-facebook"></i></a>
+                            <a href="#"><i class="ti-twitter-alt"></i></a>
+                            <a href="#"><i class="ti-linkedin"></i></a>
+                            <a href="#"><i class="ti-pinterest"></i></a>
+                        </div>
                     </div>
-                    <div class="top-social">
-                        <a href="#"><i class="ti-facebook"></i></a>
-                        <a href="#"><i class="ti-twitter-alt"></i></a>
-                        <a href="#"><i class="ti-linkedin"></i></a>
-                        <a href="#"><i class="ti-pinterest"></i></a>
-                    </div>
-                </div>
             </div>
         </div>
         <div class="container">
@@ -187,7 +212,7 @@
                                 <li><a href="#">Kid's</a></li>
                             </ul>
                         </li>
-                        <li id="blog">  @Html.ActionLink("Blog", "Blog", "Home")</li>
+                        <li id="blog">  @Html.ActionLink("Blog", "Index", "Forum")</li>
                         <li id="contact">  @Html.ActionLink("Contact", "Contact", "Home")</li>
                         <li id="others">
                             <a href="#">Pages</a>
@@ -316,9 +341,7 @@
     </footer>
     <!-- Footer Section End -->
     <!-- Js Plugins -->
-    @Scripts.Render("~/template/js")
-    @RenderSection("scripts", required: false)
-
+   
 </body>
 
 </html>

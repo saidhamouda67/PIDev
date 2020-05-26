@@ -1,0 +1,9 @@
+﻿@model Solution.Presentation.Models.CreateRoleModelView
+
+@using (Html.BeginForm("CreateRole", "Administration", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    @Html.EditorFor(model => model.RoleName, new { htmlAttributes = new { @class = "form-control " } })
+
+
+}

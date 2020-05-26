@@ -62,7 +62,6 @@
                         <div class="group-input">
                             @Html.PasswordFor(m => m.ConfirmPassword, new { @placeholder = "Confirm Password" })
                         </div>
-
                         <div class="group-input">
                             @Html.TextBox("Image", null, new
                     {
@@ -71,6 +70,7 @@
                     })
                             @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
                         </div>
+               
 
 
                         <div class="reg_checkbox">
