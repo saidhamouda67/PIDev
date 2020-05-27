@@ -194,6 +194,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdministrationController.cs" />
+    <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\BackOfficeController.cs" />
     <Compile Include="Controllers\ForumController.cs" />
@@ -2114,6 +2115,7 @@
     <Folder Include="Content\Uploads\" />
     <Folder Include="Image\" />
     <Folder Include="Views\API\" />
+    <Folder Include="Views\Authentication\" />
     <Folder Include="Views\NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
